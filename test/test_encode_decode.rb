@@ -16,10 +16,10 @@ class TestEncodeDecode < Minitest::Test
       assert_equal kdl, XmlInKdl.encode(xml)
     end
 
-    # define_method "test_decode_#{input_name}_matches_expected_output" do
-    #   xml = ::Nokogiri::XML(File.read(xml_path))
-    #   kdl = ::KDL.parse_document(File.read(kdl_path))
-    #   assert_equal xml, XmlInKdl.decode(kdl)
-    # end
+    define_method "test_decode_#{input_name}_matches_expected_output" do
+      xml = ::Nokogiri::XML(File.read(xml_path))
+      kdl = ::KDL.parse_document(File.read(kdl_path))
+      assert_equal xml.to_s, XmlInKdl.decode(kdl).to_s
+    end
   end
 end
