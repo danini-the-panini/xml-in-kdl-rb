@@ -34,20 +34,25 @@ module XmlInKdl
       end
 
       def encode_text(text)
-        content = text.content.strip
-        return nil if content.empty?
+        content = squish(text.content)
+        return nil if content.strip.empty?
 
         ::KDL::Node.new('-', [::KDL::Value.from(content)])
       end
 
       def encode_dtd(dtd)
-        ::KDL::Node.new('!doctype', [::KDL::Value.from(dtd.name)])
+        args = [dtd.name, dtd.external_id, dtd.system_id].compact.map { |x| ::KDL::Value.from(x) }
+        ::KDL::Node.new('!doctype', args)
       end
 
       def encode_encoding(encoding)
         return nil if encoding.nil?
 
         ::KDL::Node.new('?xml', [], { 'encoding' => KDL::Value.from(encoding) })
+      end
+
+      def squish(string)
+        string.gsub(/(^\s+|\s+$)/, ' ')
       end
     end
   end

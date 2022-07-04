@@ -1,5 +1,1 @@
-<foo>
-  Some text
-  <bar>Some more text</bar>
-  Even more text
-</foo>
+<foo>Some text <bar>Some more text</bar> Even more text</foo>
