@@ -17,6 +17,8 @@ module XmlInKdl
           encode_text(node)
         when Nokogiri::XML::DTD
           encode_dtd(node)
+        when Nokogiri::XML::Comment
+          encode_comment(node)
         end
       end
 
@@ -53,6 +55,10 @@ module XmlInKdl
 
       def squish(string)
         string.gsub(/(^\s+|\s+$)/, ' ')
+      end
+
+      def encode_comment(comment)
+        ::KDL::Node.new('!', [::KDL::Value.from(comment.content)])
       end
     end
   end

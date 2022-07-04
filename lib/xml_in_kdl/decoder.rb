@@ -27,6 +27,9 @@ module XmlInKdl
         if node.properties['encoding']
           @xml_doc.encoding = node.properties['encoding'].value
         end
+      when '!'
+        comment_node = ::Nokogiri::XML::Comment.new(@xml_doc, node.arguments.first.value)
+        @xml_doc.add_child(comment_node)
       when /^!/
         args = node.arguments.map(&:value)
         args << nil while args.length < 3
